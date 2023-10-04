@@ -8,10 +8,7 @@ import com.example.demo.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
@@ -103,6 +100,19 @@ public class LetterServiceImpl implements LetterService {
                         l.getStatus().toString(),
                         l.getResponseTo() != null ? l.getResponseTo().getId() : null))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Letter> getResponseChain(Long id) {
+        List<Letter> responseChain = new ArrayList<>();
+        Optional<Letter> currentLetter = letterRepository.findById(id);
+
+        while (currentLetter.isPresent() && currentLetter.get().getId() != null) {
+            responseChain.add(currentLetter.get());
+            currentLetter = letterRepository.findById(currentLetter.get().getId());
+        }
+
+        return responseChain;
     }
 
 }

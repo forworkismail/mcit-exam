@@ -35,4 +35,9 @@ export class LetterService {
   getLettersByType(type: 'INCOMING' | 'OUTGOING'): Observable<any> {
     return this.http.get(`${this.apiUrl}/type/${type}`);
   }
+
+  getResponseChain(letterId: number): Observable<any> {
+    const url = `${this.apiUrl}/${letterId}/response-chain`;
+    return this.http.get(url);
+  }
 }

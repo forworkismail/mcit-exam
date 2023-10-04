@@ -8,6 +8,7 @@
       <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Date</th>
       <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Status</th>
       <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Response To</th>
+      <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Actions</th>
     </tr>
   </thead>
   <tbody class="divide-y divide-gray-200 bg-white">
@@ -19,6 +20,31 @@
       <td class="max-w-[30px] truncate whitespace-nowrap px-6 py-4">{{ letter.date }}</td>
       <td class="max-w-[30px] truncate whitespace-nowrap px-6 py-4">{{ letter.status }}</td>
       <td class="max-w-[30px] truncate whitespace-nowrap px-6 py-4">{{ letter.responseToId   }}</td>
+      <td class="px-6 py-4">
+        <button
+          class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-700"
+          (click)="showResponseChain(letter.id)">
+          Show Chain
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>
+<ng-template #responseChainTemplate let-chain="chain">
+  <div class="rounded-md border bg-white p-4 shadow-md">
+    <h4 class="mb-4 text-lg font-bold">Response Chain</h4>
+    <div *ngFor="let letter of chain" class="mb-4">
+      <p class="font-semibold">{{ letter.uniqueIdentifier }} ({{ letter.type }})</p>
+      <p>{{ letter.content }}</p>
+      <div class="my-2 border-b border-gray-300"></div>
+    </div>
+  </div>
+</ng-template>
+
+<div *ngIf="responseChain && responseChain.length > 0; else noChain" class="mt-6">
+  <ng-container *ngTemplateOutlet="responseChainTemplate; context: { chain: responseChain }"></ng-container>
+</div>
+
+<ng-template #noChain>
+  <div class="mt-6 rounded-md bg-gray-200 p-4">No response chain selected.</div>
+</ng-template>

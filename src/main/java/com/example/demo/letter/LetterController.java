@@ -51,4 +51,9 @@ public class LetterController {
     public List<LetterResponse> getLettersByType(@PathVariable String type) {
         return letterService.getLettersByType(type);
     }
+
+    @GetMapping("/{id}/response-chain")
+    public ResponseEntity<List<Letter>> getResponseChain(@PathVariable Long id) {
+        return ResponseEntity.ok(letterService.getResponseChain(id));
+    }
 }

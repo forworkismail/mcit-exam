@@ -16,4 +16,6 @@ public interface LetterService {
     void approveLetter(Long letterId);
 
     List<LetterResponse> getLettersByType(String type);
+
+    List<Letter> getResponseChain(Long id);
 }

@@ -36,4 +36,6 @@ public class UserController {
         UserResponse userResponse = userService.save(request);
         return ResponseEntity.ok(userResponse);
     }
+
+    
 }
