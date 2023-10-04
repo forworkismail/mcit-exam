@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { LetterService } from 'app/common/services/letter.service';
 
 @Component({
   selector: 'app-draft',
@@ -12,7 +13,7 @@ export default class DraftComponent {
   letters: any[] = []; // This will hold the data for the table
   letterForm: FormGroup = this.initializeForm();
   showForm = false;
-
+  letterService = inject(LetterService);
   constructor(private fb: FormBuilder) {
     this.letterForm = this.initializeForm();
   }
@@ -23,10 +24,9 @@ export default class DraftComponent {
   }
 
   fetchLetters(): void {
-    // Assuming you have a service that fetches letters
-    // this.letterService.getLetters().subscribe(data => {
-    //   this.letters = data;
-    // });
+    this.letterService.getLettersByStatus('DRAFT').subscribe(data => {
+      this.letters = data;
+    });
   }
 
   initializeForm(): FormGroup {

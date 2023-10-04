@@ -30,7 +30,9 @@ export default class LoginComponent {
           if (response == false) {
           } else {
             this.authService.addToLocalStorage('role', response);
-            this.router.navigateByUrl('/users');
+            this.router.navigateByUrl('/users').then(() => {
+              location.reload();
+            });
           }
         },
         error => {

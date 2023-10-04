@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { AuthService } from './common/services/auth.service';
 import { NgIf } from '@angular/common';
 
@@ -12,13 +12,15 @@ import { NgIf } from '@angular/common';
 })
 export default class AppComponent {
   title = 'MCIT exam';
-  private authService = inject(AuthService);
+  private router = inject(Router);
   role: string | null = '';
 
   constructor() {}
 
   ngOnInit() {
     this.role = localStorage.getItem('role');
-    console.log(this.role);
+    if (this.role == null) {
+      this.router.navigate(['/login']);
+    }
   }
 }

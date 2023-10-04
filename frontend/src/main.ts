@@ -12,7 +12,7 @@ const routes: Routes = [
   },
   {
     path: 'users',
-    loadComponent: () => import('./app/users/users.component'),
+    loadComponent: () => import('./app/panel/users/users.component'),
     canActivate: [AuthGuard],
   },
   {

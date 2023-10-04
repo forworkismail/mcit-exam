@@ -4,10 +4,16 @@ import com.example.demo.letter.enums.LetterStatus;
 import com.example.demo.letter.enums.LetterType;
 import com.example.demo.user.User;
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
+@Data
+@NoArgsConstructor
 @Entity
+@Table(name = "letters")
 public class Letter {
 
     @Id
@@ -27,7 +33,7 @@ public class Letter {
     @JoinColumn(name = "user_id")
     private User createdBy;
 
-    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd:HH:mm:ss")
     private Date date;
 
     @Enumerated(EnumType.STRING)
