@@ -1,4 +1,4 @@
 package com.example.demo.user.responses;
 
-public record UserResponse(Long id, String name, String bio) {
+public record UserResponse(Long id, String username, String role) {
 }

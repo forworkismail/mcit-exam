@@ -1,6 +1,5 @@
 package com.example.demo.user;
 
-import com.example.demo.department.Department;
 import com.example.demo.user.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -27,7 +26,5 @@ public class User {
     @Column
     private String fullName;
 
-    @ManyToOne
-    @JoinColumn(name = "department_id")
-    private Department department;
+
 }

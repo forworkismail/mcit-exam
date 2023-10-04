@@ -1,0 +1,54 @@
+<div class="grid grid-cols-[1fr,1150px,1fr] grid-rows-[55px,1fr]">
+  <div class="col-start-2 col-end-3 row-start-2 row-end-3">
+    <form
+      [formGroup]="form"
+      class="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
+      <div class="w-full max-w-md space-y-8">
+        <div>
+          <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Login</h2>
+        </div>
+        <fieldset class="space-y-4 rounded-md shadow-sm">
+          <div>
+            <label for="username" class="sr-only">Username</label>
+            <input
+              name="username"
+              formControlName="username"
+              type="text"
+              autocomplete="username"
+              required
+              class="relative block w-full appearance-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              placeholder="Username" />
+            <div
+              *ngIf="form.get('username')?.touched && form.get('username')?.hasError('required')"
+              class="mt-2 text-xs text-red-500">
+              Username is required.
+            </div>
+          </div>
+          <div>
+            <label for="password" class="sr-only">Password</label>
+            <input
+              name="password"
+              formControlName="password"
+              type="password"
+              autocomplete="current-password"
+              required
+              class="relative block w-full appearance-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              placeholder="Password" />
+            <div
+              *ngIf="form.get('password')?.touched && form.get('password')?.hasError('required')"
+              class="mt-2 text-xs text-red-500">
+              Password is required.
+            </div>
+          </div>
+        </fieldset>
+        <div class="mt-4">
+          <button
+            class="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            (click)="login()">
+            Login
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

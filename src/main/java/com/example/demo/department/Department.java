@@ -1,9 +1,6 @@
 package com.example.demo.department;
 
-import com.example.demo.user.User;
 import jakarta.persistence.*;
-
-import java.util.List;
 
 @Entity
 @Table(name = "departments")
@@ -12,10 +9,7 @@ public class Department {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String name;
-
-    @OneToMany(mappedBy = "department")
-    private List<User> users;
-
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private DepartmentName name;
 }

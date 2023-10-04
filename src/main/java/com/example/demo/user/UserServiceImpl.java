@@ -1,53 +1,49 @@
 package com.example.demo.user;
 
-import com.example.demo.profile.Profile;
-import com.example.demo.profile.ProfileRepository;
+import com.example.demo.department.DepartmentRepository;
+import com.example.demo.user.enums.UserRole;
 import com.example.demo.user.requests.CreateUserRequest;
 import com.example.demo.user.responses.UserResponse;
-import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final DepartmentRepository departmentRepository;
 
-    private final ProfileRepository profileRepository;
-
-    @Override
-    public List<User> findAll() {
-
-        return userRepository.findAll();
+    public UserServiceImpl(UserRepository userRepository, DepartmentRepository departmentRepository) {
+        this.userRepository = userRepository;
+        this.departmentRepository = departmentRepository;
     }
 
     @Override
-    public Optional<UserResponse> findById(Long id) {
-        return userRepository.findById(id)
-                .map(user -> new UserResponse(user.getId(), user.getName(), user.getProfile().getBio()));
+    public List<UserResponse> findAll() {
+        List<User> users = userRepository.findAll();
+        return users.stream()
+                .map(user -> new UserResponse(user.getId(), user.getUsername(), user.getRole().toString()))
+                .toList();
     }
 
     @Override
-    @Transactional
-    public UserResponse save(CreateUserRequest userRequest) {
-        var user = new User();
-        user.setName(userRequest.name());
-        var savedUser = userRepository.save(user);
-
-        var profile = new Profile();
-        profile.setUser(user);
-        profile.setBio(userRequest.bio());
-        var savedProfile = profileRepository.save(profile);
-
-        return new UserResponse(savedUser.getId(), savedUser.getName(), savedProfile.getBio());
+    public UserResponse findByUsername(String username) {
+        User user = userRepository.findByUsername(username);
+        if (user != null) {
+            return new UserResponse(user.getId(), user.getUsername(), user.getRole().toString());
+        }
+        return null;
     }
 
     @Override
-    public void deleteById(Long id) {
-        userRepository.deleteById(id);
+    public UserResponse save(CreateUserRequest user) {
+        var newUser = new User();
+        newUser.setUsername(user.username());
+        newUser.setPassword(user.password());
+        newUser.setRole(UserRole.valueOf(user.role()));
+        User savedUser = userRepository.save(newUser);
+        return new UserResponse(savedUser.getId(), savedUser.getUsername(), savedUser.getRole().toString());
     }
+
 }

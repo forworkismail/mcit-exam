@@ -4,14 +4,12 @@ import com.example.demo.user.requests.CreateUserRequest;
 import com.example.demo.user.responses.UserResponse;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UserService {
-    List<User> findAll();
 
-    Optional<UserResponse> findById(Long id);
+    List<UserResponse> findAll();
 
-    UserResponse save(CreateUserRequest userRequest);
+    UserResponse findByUsername(String username);
 
-    void deleteById(Long id);
+    public UserResponse save(CreateUserRequest user);
 }
