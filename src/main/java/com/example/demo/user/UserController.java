@@ -13,6 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final UserRepository userRepository;
 
     @GetMapping
     public ResponseEntity<List<UserResponse>> getAllUsers() {

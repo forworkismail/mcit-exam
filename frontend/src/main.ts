@@ -3,6 +3,7 @@ import { Routes, provideRouter, withRouterConfig } from '@angular/router';
 import AppComponent from './app/app.component';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
+import { AuthGuard } from 'app/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -12,22 +13,27 @@ const routes: Routes = [
   {
     path: 'users',
     loadComponent: () => import('./app/users/users.component'),
+    canActivate: [AuthGuard],
   },
   {
     path: 'draft',
     loadComponent: () => import('./app/draft/draft.component'),
+    canActivate: [AuthGuard],
   },
   {
     path: 'incoming',
     loadComponent: () => import('./app/incoming/incoming.component'),
+    canActivate: [AuthGuard],
   },
   {
     path: 'outgoing',
     loadComponent: () => import('./app/outgoing/outgoing.component'),
+    canActivate: [AuthGuard],
   },
   {
     path: 'for-approve',
     loadComponent: () => import('./app/for-approve/for-approve.component'),
+    canActivate: [AuthGuard],
   },
 ];
 

@@ -5,7 +5,7 @@ import { AuthService } from 'app/common/services/auth.service';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard {
+export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(): boolean {

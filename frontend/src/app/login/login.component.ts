@@ -24,10 +24,14 @@ export default class LoginComponent {
   login() {
     const val = this.form.value;
     if (val.username && val.password) {
-      this.authService.login(val.email, val.password).subscribe(
+      this.authService.login(val.username, val.password).subscribe(
         (response: any) => {
           console.log(response);
-          this.router.navigateByUrl('/panel');
+          if (response == false) {
+          } else {
+            this.authService.addToLocalStorage('role', response);
+            this.router.navigateByUrl('/users');
+          }
         },
         error => {
           console.log(error);

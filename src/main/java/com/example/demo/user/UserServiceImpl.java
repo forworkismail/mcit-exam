@@ -7,6 +7,7 @@ import com.example.demo.user.responses.UserResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -29,8 +30,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse findByUsername(String username) {
-        User user = userRepository.findByUsername(username);
-        if (user != null) {
+        Optional<User> optionalUser = userRepository.findByUsername(username);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
             return new UserResponse(user.getId(), user.getUsername(), user.getRole().toString());
         }
         return null;

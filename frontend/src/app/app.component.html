@@ -8,21 +8,25 @@
         Users
       </button>
       <button
+        *ngIf="role == 'DEPARTMENT_MEMBERS'"
         class="rounded-md bg-indigo-500 px-4 py-2 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-offset-2"
         routerLink="draft">
         Draft
       </button>
       <button
+        *ngIf="role == 'DEPARTMENT_MEMBERS' || role == 'APPROVERS'"
         class="rounded-md bg-indigo-500 px-4 py-2 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-offset-2"
         routerLink="incoming">
         Incoming
       </button>
       <button
+        *ngIf="role == 'DEPARTMENT_MEMBERS' || role == 'APPROVERS'"
         class="rounded-md bg-indigo-500 px-4 py-2 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-offset-2"
         routerLink="outgoing">
         Outgoing
       </button>
       <button
+        *ngIf="role == 'APPROVERS'"
         class="rounded-md bg-indigo-500 px-4 py-2 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-offset-2"
         routerLink="for-approve">
         For approve
